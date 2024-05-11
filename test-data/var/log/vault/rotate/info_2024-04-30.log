@@ -1,0 +1,11 @@
+datetime:2024-04-30 05:21:14	info:Set key OS_AUTH_URL
+datetime:2024-04-30 05:22:30	info:Set key OS_USERNAME
+datetime:2024-04-30 05:22:39	info:Get key OS_USERNAME
+datetime:2024-04-30 05:23:13	info:Set key OS_PASSWORD
+datetime:2024-04-30 05:23:56	info:Set key OS_TENANT_ID
+datetime:2024-04-30 05:24:26	info:Set key OS_DOMAIN_NAME
+datetime:2024-04-30 05:25:17	info:Get key OS_AUTH_URL
+datetime:2024-04-30 05:25:26	info:Get key OS_PASSWORD
+datetime:2024-04-30 05:25:37	info:Get key OS_TENANT_ID
+datetime:2024-04-30 05:25:47	info:Get key OS_DOMAIN_NAME
+datetime:2024-04-30 05:26:30	info:Get key OS_DOMAIN_NAME

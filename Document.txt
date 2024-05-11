@@ -1,0 +1,67 @@
+This service is used to backup files to OpenStack object storage.
+
+Features:
+  - This service will begin backing up daily at 2:00AM local time.
+  - This service use to vault to get credencial of objectstrage. See
+    https://github.com/tappoy/vault-cli
+
+Container Name:
+  - backup/$HOST/NAME/data/YYYY-MM-DD.tgz
+  - backup/$HOST/NAME/log/PATH/FILENAME.gz
+
+Environment Variables:
+  - HOST: The hostname of the machine running this service.
+
+VARIABLES
+
+var Usage string
+    Usage is the help message.
+
+
+FUNCTIONS
+
+func RunHelpMessage()
+    RunHelpMessage prints the simple error message.
+
+
+TYPES
+
+type BackupMode string
+    BackupMode is the kind of backup mode.
+
+var (
+	// Tar gz the target directory and keep 14 recent backups.
+	// The backup file name format is YYYY-MM-DD.tgz.
+	// If the latest backups has the same hash, that backup is skipped.
+	DataMode BackupMode = "data"
+
+	// Recursively gzip compresses files in the target directory
+	// and keeps all backups. This backup never expires.
+	// If a file with the same name already exists in the container,
+	// it is skipped.
+	LogMode BackupMode = "log"
+)
+type Config struct {
+	// Name is the name of the setting.
+	// It uses the container name in the bucket.
+	Name string
+
+	// Mode is the mode of backup.
+	Mode BackupMode
+
+	// Source is the source directory path to be backed up.
+	Source string
+}
+    Config represents backup settings defined by a yaml file.
+
+func LoadConfigFile(path string) ([]Config, error)
+    LoadConfigFile loads backup settings from config file.
+
+type ConfigError struct {
+	TsvLine tsv.TsvLine
+	Err     error
+}
+    ConfigError represents an error in the config file.
+
+func (e ConfigError) Error() string
+

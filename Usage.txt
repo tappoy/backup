@@ -1,0 +1,30 @@
+backup <command>
+  (*): need service to be started.
+  commands:
+    - start <vault-dir>      start the service. required password.
+    - stop                   stop the service
+    - info                   show the service status
+    * get <obj-path> <dst>   download the object.
+    * rmobject <obj-path>    remove the object.
+    * rmcontainer <path>     remove the container.
+    * objects <container>    list objects in container.
+    * containers             list containers.
+    - help                   show this message
+
+  Path:
+    - vault-dir: The path of the vault directory.
+    - log file:  /var/log/backup/{info,notice,error}.log
+    - pid file:  /var/run/backup.pid
+    - pipe file: /var/run/backup.pipe
+
+  This service starts backing up at 2:00 daily.
+
+  Vault:
+    Credentials of objectstrorage are stored in vault.
+    The vault must manage these keys:
+      - OS_AUTH_URL
+      - OS_USERNAME
+      - OS_PASSWORD
+      - OS_TENANT_ID
+      - OS_DOMAIN_NAME
+    See https://github.com/tappoy/vault-cli for more information.
