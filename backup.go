@@ -29,3 +29,54 @@ func RunHelpMessage() {
 func main() {
 	RunHelpMessage()
 }
+
+// Upload(client, archive, container, object, hash)
+	// if IsSameHash(client, container, object, hash)
+		// return
+	// upload object
+
+// IsSameHash(client, container, object, hash) bool
+	// if object exist
+		// get the object's hash
+		// compare hash
+		// if hash is the same
+			// continue
+
+// LogModeBackup()
+	// make log archive
+	// defer rm log archive
+	// make hash
+	// make log container name
+	// make log object name
+	// loop vault
+		// Upload(client, archive, container, object, hash)
+
+// DataModeBackup()
+	// make data archive
+	// defer rm data archive
+	// make hash
+	// make data container name
+	// make data object name
+	// loop vault
+		// Upload(client, archive, container, object, hash)
+
+// Run()
+	// loop
+		// if it is not time to backup
+			// sleep 1 min
+			// continue
+		// Load config file
+		// new vaults
+		// get hostname
+		// Backup(hostname, vaults)
+		// loop config
+			// check src
+			// if mode is data
+				// DataModeBackup()
+			// if mode is log
+				// if src is dir
+					// get files
+					// loop files
+						// LogModeBackup()
+				// if src is file
+					// LogModeBackup()
