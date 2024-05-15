@@ -3,9 +3,13 @@
 
 See [Document.txt](Document.txt)
 
+# Config
+- aws: [.aws.config](https://github.com/tappoy/archive/.aws.config.sample)
+- openstack: [.openstack.config](https://github.com/tappoy/archive/.openstack.config.sample)
+
 # Dependencies
 - [github.com/tappoy/env](https://github.com/tappoy/env)
-- [github.com/tappoy/objectstorage](https://github.com/tappoy/objectstorage)
+- [github.com/tappoy/archive](https://github.com/tappoy/archive)
 - [github.com/tappoy/vault-cli](https://github.com/tappoy/vault-cli)
 - [github.com/tappoy/vault](https://github.com/tappoy/vault)
 

@@ -44,6 +44,7 @@ func main() {
 
 // LogModeBackup()
 	// make log archive
+		// gz crypt
 	// defer rm log archive
 	// make hash
 	// make log container name
@@ -54,6 +55,7 @@ func main() {
 // DataModeBackup()
 	// make data archive
 	// defer rm data archive
+		// tar gz crypt
 	// make hash
 	// make data container name
 	// make data object name
