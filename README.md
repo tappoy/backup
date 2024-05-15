@@ -4,8 +4,8 @@
 See [Document.txt](Document.txt)
 
 # Config
-- aws: [.aws.config](https://github.com/tappoy/archive/.aws.config.sample)
-- openstack: [.openstack.config](https://github.com/tappoy/archive/.openstack.config.sample)
+- aws: [.aws.config](https://github.com/tappoy/archive/blob/main/.aws.config.sample)
+- openstack: [.openstack.config](https://github.com/tappoy/archive/blob/main/.openstack.config.sample)
 
 # Dependencies
 - [github.com/tappoy/env](https://github.com/tappoy/env)
