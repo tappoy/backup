@@ -1,15 +1,11 @@
-// This service is used to backup files to OpenStack object storage.
+// This service is used to backup files to cloud object storage.
 //
 // Features:
 // 	- This service will begin backing up daily at 2:00AM local time.
-// 	- This service use to vault to get credencial of objectstrage. See https://github.com/tappoy/vault-cli
-//
-// Container Name:
-// 	- backup/$HOST/NAME/data/YYYY-MM-DD.tgz
-// 	- backup/$HOST/NAME/log/PATH/FILENAME.gz
-//
-// Environment Variables:
-// 	- HOST: The hostname of the machine running this service.
+// 	- Support cloud object storage, such as AWS S3 and OpenStack.
+// 	- Multiple backup destinations can be configured.
+// 	- Backup files is gz or tgz format.
+// 	- Backup files is encrypted.
 package main
 
 import (
@@ -30,55 +26,55 @@ func main() {
 	RunHelpMessage()
 }
 
-// Upload(client, archive, container, object, hash)
-	// if IsSameHash(client, container, object, hash)
+// Upload(client, archive, prefix, basename, hash)
+	// if IsSameHash(client, object, hash)
 		// return
 	// upload object
 
-// IsSameHash(client, container, object, hash) bool
+// IsSameHash(client, prefix, basename, hash) bool
 	// if object exist
 		// get the object's hash
 		// compare hash
 		// if hash is the same
 			// continue
 
-// LogModeBackup()
+// LogModeBackup(clients, src)
 	// make log archive
 		// gz crypt
 	// defer rm log archive
 	// make hash
-	// make log container name
-	// make log object name
-	// loop vault
-		// Upload(client, archive, container, object, hash)
+	// make log prefix
+	// make log base name
+	// loop clients
+		// Upload(client, archive, prefix, basename, hash)
 
-// DataModeBackup()
+// DataModeBackup(clients, src)
 	// make data archive
 	// defer rm data archive
 		// tar gz crypt
 	// make hash
 	// make data container name
-	// make data object name
-	// loop vault
-		// Upload(client, archive, container, object, hash)
+	// make data base name
+	// loop clients
+		// Upload(client, archive, prefix, basename, hash)
 
 // Run()
 	// loop
 		// if it is not time to backup
 			// sleep 1 min
 			// continue
-		// Load config file
+		// Load srcConfig file
 		// new vaults
+		// new clients
 		// get hostname
-		// Backup(hostname, vaults)
-		// loop config
+		// loop srcConfig
 			// check src
 			// if mode is data
-				// DataModeBackup()
+				// DataModeBackup(vaults, src)
 			// if mode is log
 				// if src is dir
 					// get files
 					// loop files
-						// LogModeBackup()
+						// LogModeBackup(clients, src)
 				// if src is file
-					// LogModeBackup()
+					// LogModeBackup(clients, src)
