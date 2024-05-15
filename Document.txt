@@ -1,16 +1,11 @@
-This service is used to backup files to OpenStack object storage.
+This service is used to backup files to cloud object storage.
 
 Features:
   - This service will begin backing up daily at 2:00AM local time.
-  - This service use to vault to get credencial of objectstrage. See
-    https://github.com/tappoy/vault-cli
-
-Container Name:
-  - backup/$HOST/NAME/data/YYYY-MM-DD.tgz
-  - backup/$HOST/NAME/log/PATH/FILENAME.gz
-
-Environment Variables:
-  - HOST: The hostname of the machine running this service.
+  - Support cloud object storage, such as AWS S3 and OpenStack.
+  - Multiple backup destinations can be configured.
+  - Backup files is gz or tgz format.
+  - Backup files is encrypted.
 
 VARIABLES
 
@@ -41,7 +36,7 @@ var (
 	// it is skipped.
 	LogMode BackupMode = "log"
 )
-type Config struct {
+type SrcConfig struct {
 	// Name is the name of the setting.
 	// It uses the container name in the bucket.
 	Name string
@@ -52,16 +47,16 @@ type Config struct {
 	// Source is the source directory path to be backed up.
 	Source string
 }
-    Config represents backup settings defined by a yaml file.
+    SrcConfig represents backup settings defined by a yaml file.
 
-func LoadConfigFile(path string) ([]Config, error)
-    LoadConfigFile loads backup settings from config file.
+func LoadSrcConfigFile(path string) ([]SrcConfig, error)
+    LoadSrcConfigFile loads backup settings from config file.
 
-type ConfigError struct {
+type SrcConfigError struct {
 	TsvLine tsv.TsvLine
 	Err     error
 }
-    ConfigError represents an error in the config file.
+    SrcConfigError represents an error in the config file.
 
-func (e ConfigError) Error() string
+func (e SrcConfigError) Error() string
 
