@@ -3,7 +3,10 @@
 
 See [Document.txt](Document.txt)
 
-# Config
+# Config of Source
+- [backup.config](./test-data/config/backup.config)
+
+# Config of Destination
 - aws: [.aws.config](https://github.com/tappoy/archive/blob/main/.aws.config.sample)
 - openstack: [.openstack.config](https://github.com/tappoy/archive/blob/main/.openstack.config.sample)
 
