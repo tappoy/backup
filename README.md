@@ -1,14 +1,20 @@
 # Package
-`github.com/tappoy/backup`
+`github.com/tappoy/backupd`
 
 See [Document.txt](Document.txt)
 
 # Config of Source
-- [backup.config](./test-data/config/backup.config)
+- [backupd.config](./test-data/config/backupd.config)
 
 # Config of Destination
 - aws: [.aws.config](https://github.com/tappoy/archive/blob/main/.aws.config.sample)
 - openstack: [.openstack.config](https://github.com/tappoy/archive/blob/main/.openstack.config.sample)
+
+# Operation Example
+```sh
+# set vault dir and password
+usr@local$ cat .vault-password | ssh user@remote 'backupd vault /srv/vault'
+```
 
 # Dependencies
 - [github.com/tappoy/env](https://github.com/tappoy/env)
