@@ -10,7 +10,7 @@ import (
 	)
 
 func TestLoadSrcConfigFile(t *testing.T) {
-	config, err := LoadSrcConfigFile("test-data/config/backup.config")
+	config, err := LoadSrcConfigFile("test-data/config/backupd.config")
 	if err != nil {
 		t.Errorf("err: %v", err)
 	}
