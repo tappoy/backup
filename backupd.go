@@ -94,9 +94,8 @@ func main() {
 // run
 func run(command string) int {
 	switch command {
-	case "help":
-		help()
-		return 0
+	case "start":
+		return start()
 	default:
 		env.Errf("Unknown command: %s\n", command)
 		RunHelpMessage()
