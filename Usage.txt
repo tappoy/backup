@@ -9,7 +9,7 @@ backupd <command>
     * backup [<n>]         backup immediately.
                            if no n, backup to all of clouds.
     * get <n> <obj> <dst>  download the object to the destination.
-    * delete <n> <obj>     delete the object.
+    * remove <n> <obj>     remove the object.
     * list <n>             list objects in container.
     * du <n>               disk usage of the container.
 
