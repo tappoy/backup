@@ -28,16 +28,23 @@ backupd <command>
     - pid :    /run/backupd.pid
     - socket : /run/backupd.socket
 
+  Environment:
+    - VAULT_PREFIX: The prefix of the vault key.
+                    If not set, service will not start.
+
   This service starts backing up at 2:00 daily.
 
   Vault:
     Configs of clouds are stored in the vault.
     The vault manage these keys:
-      - BACKUP_n
+      - VAULT_PREFIX_n
     Like:
-      - BACKUP_1
-      - BACKUP_2 ...
-    Backup to all of clouds these BACKUP_n keys.
+      - VAULT_PREFIX_1
+      - VAULT_PREFIX_2 ...
+    Backup to all of clouds these keys.
+    The keys starts from 1 and are consecutive.
+    If the keys are not consecutive, such as 1, 2, 4...,
+    the keys after 4 are ignored.
 
     See:
       - https://github.com/tappoy/archive
