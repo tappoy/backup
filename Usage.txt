@@ -8,7 +8,7 @@ backupd <command>
                            password can be read from stdin.
     * backup [<n>]         backup immediately.
                            if no n, backup to all of clouds.
-    * get <n> <obj> <dst>  download the object.
+    * get <n> <obj> <dst>  download the object to the destination.
     * delete <n> <obj>     delete the object.
     * list <n>             list objects in container.
     * du <n>               disk usage of the container.
@@ -18,11 +18,11 @@ backupd <command>
 
   Arguments:
     - vault-dir: The path of the vault directory.
-    - n: The number of the vault key BACKUP_n.
+    - n: The number of the vault key VAULT_PREFIX_n.
     - obj: The object name.
     - dst: The destination path. if dst is "-" then stdout.
 
-  Path:
+  Files:
     - vault-dir: The path of the vault directory.
     - log :    /var/log/backupd/{info,notice,error}.log
     - pid :    /run/backupd.pid
