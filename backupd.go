@@ -11,30 +11,59 @@ package main
 import (
 	_ "embed"
 	"github.com/tappoy/env"
+
+	"os"
 	)
 
 // Usage is the help message.
 //go:embed Usage.txt
 var Usage string
 
+// VaultPrefix is the prefix of the vault keys.
+var VaultPrefix string
+
+// PidFile is the path of the pid file.
+const PidFile = "/var/run/backupd.pid"
+
 // RunHelpMessage prints the simple error message.
 func RunHelpMessage() {
 	env.Errf("Run %s help\n", env.Args[0])
 }
 
-func help() int {
+func help() {
 	env.Outf(Usage)
-	return 0
 }
 
-func checkEnv() bool {
-	// check VAULT_PREFIX
-	if env.Getenv("VAULT_PREFIX", "") == "" {
-		env.Errf("VAULT_PREFIX is not set\n")
-		RunHelpMessage()
+func info() {
+	_, err := os.Stat(PidFile)
+	if err != nil {
+		env.Outf("Service is not running.\n")
+		return
+	}
+
+	pid, err := os.ReadFile(PidFile)
+	var pidStr string
+	if err != nil {
+		env.Outf("Failed to read pid file.\n")
+		env.Outf("Cannot access the service.\n")
+		return
+	}
+
+	pidStr = string(pid)
+	env.Outf("Service is running. pid=%s\n", pidStr)
+}
+
+func run0(command string) bool {
+	switch command {
+	case "help":
+		help()
+		return true
+	case "info":
+		info()
+		return true
+	default:
 		return false
 	}
-	return true
 }
 
 func main() {
@@ -46,6 +75,18 @@ func main() {
 	}
 	command := env.Args[1]
 
+	// run0 command not need to check env
+	if run0(command) {
+		env.Exit(0)
+	}
+
+	VaultPrefix = env.Getenv("VAULT_PREFIX", "")
+	if VaultPrefix == "" {
+		env.Errf("VAULT_PREFIX is not set\n")
+		RunHelpMessage()
+		env.Exit(1)
+	}
+
 	// run command
 	env.Exit(run(command))
 }
@@ -54,7 +95,8 @@ func main() {
 func run(command string) int {
 	switch command {
 	case "help":
-		return help()
+		help()
+		return 0
 	default:
 		env.Errf("Unknown command: %s\n", command)
 		RunHelpMessage()

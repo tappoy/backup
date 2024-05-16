@@ -7,10 +7,19 @@ Features:
   - Backup files is gz or tgz format.
   - Backup files is encrypted.
 
+CONSTANTS
+
+const PidFile = "/var/run/backupd.pid"
+    PidFile is the path of the pid file.
+
+
 VARIABLES
 
 var Usage string
     Usage is the help message.
+
+var VaultPrefix string
+    VaultPrefix is the prefix of the vault keys.
 
 
 FUNCTIONS
