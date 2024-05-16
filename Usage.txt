@@ -1,20 +1,32 @@
-backup <command>
+backupd <command>
   commands:
-    - help               show this message
-    - info               show the service status
-    - start <vault-dir>  start the service. required password.
-    * stop               stop the service
-    * get <obj> <dst>    download the object.
-    * delete <obj>       remove the object.
-    * list               list objects in container.
+    - help                 show this message.
+    - info                 show the service status.
+    - start                start the service.
+    + stop                 stop the service.
+    + vault <vault-dir>    set vault directory. required password.
+                           password can be read from stdin.
+    * backup [<n>]         backup immediately.
+                           if no n, backup to all of clouds.
+    * get <n> <obj> <dst>  download the object.
+    * delete <n> <obj>     delete the object.
+    * list <n>             list objects in container.
+    * du <n>               disk usage of the container.
 
-  (*) need service to be started.
+  (+) need service to be started.
+  (*) need service to be started and vault-dir to be set.
+
+  Arguments:
+    - vault-dir: The path of the vault directory.
+    - n: The number of the vault key BACKUP_n.
+    - obj: The object name.
+    - dst: The destination path. if dst is "-" then stdout.
 
   Path:
     - vault-dir: The path of the vault directory.
-    - log file:  /var/log/backup/{info,notice,error}.log
-    - pid file:  /var/run/backup.pid
-    - pipe file: /var/run/backup.pipe
+    - log :    /var/log/backupd/{info,notice,error}.log
+    - pid :    /run/backupd.pid
+    - socket : /run/backupd.socket
 
   This service starts backing up at 2:00 daily.
 
