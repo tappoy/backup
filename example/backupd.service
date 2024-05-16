@@ -1,0 +1,13 @@
+[Unit]
+Description=backup daemon
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/home/backupd/go/bin/backupd start
+WorkingDirectory=/home/backupd
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
