@@ -9,8 +9,14 @@ Features:
 
 CONSTANTS
 
+const LogDir = "/var/log/backupd"
+    Log directory
+
 const PidFile = "/var/run/backupd.pid"
     PidFile is the path of the pid file.
+
+const SocketFile = "/var/run/backupd.sock"
+    SocketFile is the path of the socket file.
 
 
 VARIABLES
