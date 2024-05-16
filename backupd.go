@@ -22,8 +22,44 @@ func RunHelpMessage() {
 	env.Errf("Run %s help\n", env.Args[0])
 }
 
+func help() int {
+	env.Outf(Usage)
+	return 0
+}
+
+func checkEnv() bool {
+	// check VAULT_PREFIX
+	if env.Getenv("VAULT_PREFIX", "") == "" {
+		env.Errf("VAULT_PREFIX is not set\n")
+		RunHelpMessage()
+		return false
+	}
+	return true
+}
+
 func main() {
-	RunHelpMessage()
+	// get command
+	if len(env.Args) < 2 {
+		env.Errf("No command specified\n")
+		RunHelpMessage()
+		env.Exit(1)
+	}
+	command := env.Args[1]
+
+	// run command
+	env.Exit(run(command))
+}
+
+// run
+func run(command string) int {
+	switch command {
+	case "help":
+		return help()
+	default:
+		env.Errf("Unknown command: %s\n", command)
+		RunHelpMessage()
+		return 1
+	}
 }
 
 // Upload(client, archive, prefix, basename, hash)
