@@ -13,6 +13,7 @@ import (
 	"github.com/tappoy/env"
 
 	"os"
+	"strings"
 	)
 
 // Usage is the help message.
@@ -24,6 +25,12 @@ var VaultPrefix string
 
 // PidFile is the path of the pid file.
 const PidFile = "/var/run/backupd.pid"
+
+// SocketFile is the path of the socket file.
+const SocketFile = "/var/run/backupd.sock"
+
+// Log directory
+const LogDir = "/var/log/backupd"
 
 // RunHelpMessage prints the simple error message.
 func RunHelpMessage() {
@@ -80,12 +87,8 @@ func main() {
 		env.Exit(0)
 	}
 
-	VaultPrefix = env.Getenv("VAULT_PREFIX", "")
-	if VaultPrefix == "" {
-		env.Errf("VAULT_PREFIX is not set\n")
-		RunHelpMessage()
-		env.Exit(1)
-	}
+	// set LogDir
+	env.SetLogger(LogDir)
 
 	// run command
 	env.Exit(run(command))
@@ -96,12 +99,44 @@ func run(command string) int {
 	switch command {
 	case "start":
 		return start()
+	}
+
+	// check pid file
+	_, err := os.Stat(PidFile)
+	if err != nil {
+		env.Errf("Service is not running.\n")
+		return 1
+	}
+
+	// check socket file
+	_, err = os.Stat(SocketFile)
+	if err != nil {
+		env.Errf("Socket file is not found.\n")
+		return 1
+	}
+
+	switch command {
+	case "stop", "vault", "backup", "get", "remove", "list", "du":
+		return sendCommand()
 	default:
 		env.Errf("Unknown command: %s\n", command)
 		RunHelpMessage()
 		return 1
 	}
 }
+
+func sendCommand() int {
+	// shift args
+	args := env.Args[1:]
+
+	// join args
+	cmd := strings.Join(args, " ")
+
+	env.Errf("sendCommand: %s\n", cmd)
+	return 0
+}
+
+
 
 // Upload(client, archive, prefix, basename, hash)
 	// if IsSameHash(client, object, hash)
