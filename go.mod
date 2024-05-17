@@ -3,7 +3,7 @@ module github.com/tappoy/backup
 go 1.22.3
 
 require (
-	github.com/tappoy/env v1.4.0
+	github.com/tappoy/env v1.5.0
 	github.com/tappoy/tsv v1.0.0
 )
 

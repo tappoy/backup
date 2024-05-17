@@ -1,5 +1,5 @@
-github.com/tappoy/env v1.4.0 h1:qDTu1aqGLhqIrn+D+5bHli5VP/f0mflf1yMSS+QqXnk=
-github.com/tappoy/env v1.4.0/go.mod h1:VlpACO97nStij1EwajaG0ZDPVX9LHXbTTW9YPjsCLbY=
+github.com/tappoy/env v1.5.0 h1:Xdwyvupf0ZCf06Iu3SJJmKfuyvWwdn714oJrG25OJak=
+github.com/tappoy/env v1.5.0/go.mod h1:VlpACO97nStij1EwajaG0ZDPVX9LHXbTTW9YPjsCLbY=
 github.com/tappoy/logger v1.9.0 h1:az9/azF/6H3L0dz4RKLE/b0e2ymoooA93Sk/SBD4aq0=
 github.com/tappoy/logger v1.9.0/go.mod h1:5XDuyu3l8ktLVFgWyRuNZfbiP5FYe+NyfQJOan0Xvck=
 github.com/tappoy/tsv v1.0.0 h1:N+N65EPOpNQXvcjG2/RaoOLyCWOc/7fnqtS+5hAM//E=
