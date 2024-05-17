@@ -21,6 +21,7 @@ const SocketFile = "/var/run/backupd.sock"
 
 VARIABLES
 
+var ErrInterrupted = errors.New("Interrupted")
 var Usage string
     Usage is the help message.
 
