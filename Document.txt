@@ -24,9 +24,6 @@ const SocketFile = "/var/run/backupd.sock"
 
 VARIABLES
 
-var ConfigFile string
-    ConfigFile is the path of the config file.
-
 var ErrInterrupted = errors.New("Interrupted")
 var Usage string
     Usage is the help message.
