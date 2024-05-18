@@ -26,7 +26,7 @@ var (
 // SrcConfig represents backup settings defined by a yaml file.
 type SrcConfig struct {
 	// Name is the name of the setting.
-	// It uses the container name in the bucket.
+	// It uses the container name in the prefix.
 	Name string
 
 	// Mode is the mode of backup.
