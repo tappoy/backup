@@ -4,7 +4,7 @@ backupd <command>
     - info                 show the service status.
     - start                start the service.
     + stop                 stop the service.
-    + vault <vault-dir>    set vault directory. required password.
+    + vault <vault-prefix> set vault prefix. required password.
                            password can be read from stdin.
     * backup [<n>]         backup immediately.
                            if no n, backup to all of clouds.
@@ -17,8 +17,8 @@ backupd <command>
   (*) need service to be started and vault-dir to be set.
 
   Arguments:
-    - vault-dir: The path of the vault directory.
-    - n: The number of the vault key VAULT_PREFIX_n.
+    - vault-prefix: The prefix of the vault key.
+    - n: The number of the vault key. (vault-prefix + "_" + n)
     - obj: The object name.
     - dst: The destination path. if dst is "-" then stdout.
 
@@ -29,7 +29,9 @@ backupd <command>
     - socket : /run/backupd.socket
 
   Environment:
-    - VAULT_PREFIX: The prefix of the vault key.
+    - CONFIG:       The path of the configuration file.
+                    Default is /etc/backupd.config.
+    - VAULT_DIR:    The directory of the vault.
                     If not set, service will not start.
 
   This service starts backing up at 2:00 daily.
@@ -37,10 +39,10 @@ backupd <command>
   Vault:
     Configs of clouds are stored in the vault.
     The vault manage these keys:
-      - VAULT_PREFIX_n
-    Like:
-      - VAULT_PREFIX_1
-      - VAULT_PREFIX_2 ...
+      - vault-prefix_n
+    If the vault-prefix is set to "CLOUD", like below:
+      - CLOUD_1
+      - CLOUD_2 ...
     Backup to all of clouds these keys.
     The keys starts from 1 and are consecutive.
     If the keys are not consecutive, such as 1, 2, 4...,

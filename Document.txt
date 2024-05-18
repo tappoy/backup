@@ -9,6 +9,9 @@ Features:
 
 CONSTANTS
 
+const DefaultConfigFile = "/etc/backupd.config"
+    DefaultConfigFile is the path of the default config file.
+
 const LogDir = "/var/log/backupd"
     Log directory
 
@@ -21,12 +24,15 @@ const SocketFile = "/var/run/backupd.sock"
 
 VARIABLES
 
+var ConfigFile string
+    ConfigFile is the path of the config file.
+
 var ErrInterrupted = errors.New("Interrupted")
 var Usage string
     Usage is the help message.
 
-var VaultPrefix string
-    VaultPrefix is the prefix of the vault keys.
+var VaultDir string
+    VaultDir is the directory path of the vault.
 
 
 FUNCTIONS

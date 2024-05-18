@@ -21,8 +21,11 @@ import (
 //go:embed Usage.txt
 var Usage string
 
-// VaultPrefix is the prefix of the vault keys.
-var VaultPrefix string
+// VaultDir is the directory path of the vault.
+var VaultDir string
+
+// ConfigFile is the path of the config file.
+var ConfigFile string
 
 // PidFile is the path of the pid file.
 const PidFile = "/var/run/backupd.pid"
@@ -32,6 +35,9 @@ const SocketFile = "/var/run/backupd.sock"
 
 // Log directory
 const LogDir = "/var/log/backupd"
+
+// DefaultConfigFile is the path of the default config file.
+const DefaultConfigFile = "/etc/backupd.config"
 
 // RunHelpMessage prints the simple error message.
 func RunHelpMessage() {
