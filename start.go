@@ -79,9 +79,9 @@ func start() int {
 	}
 
 	// get VAULT_PREFIX
-	VaultPrefix = env.Getenv("VAULT_PREFIX", "")
-	if VaultPrefix == "" {
-		env.Errf("VAULT_PREFIX is not set\n")
+	VaultDir = env.Getenv("VAULT_DIR", "")
+	if VaultDir == "" {
+		env.Errf("VAULT_DIR is not set\n")
 		RunHelpMessage()
 		return 1
 	}
@@ -179,6 +179,28 @@ func checkTime(now time.Time, lastExecuted time.Time) bool {
 	return false
 }
 
+func doCommand(line string) {
+	args := strings.Split(line, " ")
+	command := args[0]
+	switch command {
+	case "vault":
+		vault(args[1:])
+	case "backup":
+		backupByCommand(args[1:])
+	case "get":
+		get(args[1:])
+	case "remove":
+		remove(args[1:])
+	case "list":
+		list(args[1:])
+	case "du":
+		du(args[1:])
+	default:
+		env.EInfo("receive unknown command: %s", command)
+		return
+	}
+}
+
 func backupBySchedule(c chan error, cmd chan string, sigterm chan os.Signal) {
 	for {
 		select {
@@ -201,28 +223,6 @@ func backupBySchedule(c chan error, cmd chan string, sigterm chan os.Signal) {
 			time.Sleep(1 * time.Second)
 			env.Errf(".")
 		}
-	}
-}
-
-func doCommand(line string) {
-	args := strings.Split(line, " ")
-	command := args[0]
-	switch command {
-	case "vault":
-		vault(args[1:])
-	case "backup":
-		backupByCommand(args[1:])
-	case "get":
-		get(args[1:])
-	case "remove":
-		remove(args[1:])
-	case "list":
-		list(args[1:])
-	case "du":
-		du(args[1:])
-	default:
-		env.EInfo("receive unknown command: %s", command)
-		return
 	}
 }
 
