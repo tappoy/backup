@@ -33,6 +33,7 @@ func accept(sock net.Listener) (string, error) {
 }
 
 func readLineFromSocket(sock net.Listener, cmd chan string, sigterm chan os.Signal) {
+	errCount := 0
 	for {
 		select {
 		case <-sigterm:
@@ -40,11 +41,18 @@ func readLineFromSocket(sock net.Listener, cmd chan string, sigterm chan os.Sign
 		default:
 			line, err := accept(sock)
 			if err != nil {
-				env.Errf("failed to read from socket: %v\n", err)
-				env.Notice("failed to read from socket: %v", err)
+				if strings.Contains(err.Error(), "use of closed network connection") {
+					env.ENotice("socket closed. readLineFromSocket stopped")
+					return
+				}
+				if errCount == 1 {
+					env.EError("failed to read from socket: %v", err)
+				}
+				errCount++
 				continue
 			}
-			env.Errf("received: %s\n", line)
+			errCount = 0
+			env.EDebug("received: %s\n", line)
 
 			// trim line
 			line = strings.TrimSpace(line)
@@ -117,22 +125,19 @@ func start() int {
 	// last executed time
 	var lastExecuted time.Time
 
-	// Output to stderr until the server starts.
-	env.Errf("service started\n")
-
-	// After the server starts, output to a log file.
-	env.Info("service started")
+	env.EInfo("service started")
+	defer env.EInfo("service stopped")
 
 	// loop
 	for {
 		select {
 		case <-time.After(1 * time.Minute):
-			env.Debug("wake up")
+			env.EDebug("wake up")
 			// check if it is time to execute (2:00 AM)
 			now := time.Now()
 			if checkTime(now, lastExecuted) {
 				// execute
-				env.Info("backup started by schedule")
+				env.EInfo("backup started by schedule")
 				c := make(chan error)
 				go backup(c, cmd, sigterm)
 				err := <-c
@@ -140,27 +145,27 @@ func start() int {
 
 				// check error
 				if err == ErrInterrupted {
-					env.Info("backup interrupted")
+					env.EInfo("backup interrupted")
 					return 0
 				}
 				if err != nil {
-					env.Error("failed to backup: %v", err)
+					env.EError("failed to backup: %v", err)
 					continue
 				}
 				lastExecuted = now
 			}
 		case line := <-cmd:
 			// execute command
-			env.Info("command received: %s", line)
+			env.EDebug("command received: %s", line)
 			if line == "stop" {
-				env.Info("service stopped by command")
+				env.EDebug("service stopped by command")
 				return 0
 			}
 			doCommand(line)
 			continue
 		case <-sigterm:
 			// interrupted
-			env.Info("service stopped by signal")
+			env.EDebug("service stopped by signal")
 			return 0
 		}
 	}
@@ -178,18 +183,18 @@ func backup(c chan error, cmd chan string, sigterm chan os.Signal) {
 	for {
 		select {
 		case <-sigterm:
-			env.Info("backup interrupted by signal")
+			env.EInfo("backup interrupted by signal")
 			c <- ErrInterrupted
 			return
 		case line := <-cmd:
 			// execute command
-			env.Info("command received while backup: %s", line)
+			env.EInfo("command received while backup: %s", line)
 			if line == "stop" {
-				env.Info("backup interrupted by command")
+				env.EInfo("backup interrupted by stop command")
 				c <- ErrInterrupted
 				return
 			} else {
-				env.Info("command ignored while backup: %s", line)
+				env.EInfo("command ignored while backup: %s", line)
 			}
 		default:
 			// do something
