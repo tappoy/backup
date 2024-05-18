@@ -78,7 +78,7 @@ func start() int {
 		return 1
 	}
 
-	// get VAULT_PREFIX
+	// get VAULT_DIR
 	VaultDir = env.Getenv("VAULT_DIR", "")
 	if VaultDir == "" {
 		env.Errf("VAULT_DIR is not set\n")
@@ -199,35 +199,6 @@ func doCommand(line string) {
 		env.EInfo("receive unknown command: %s", command)
 		return
 	}
-}
-
-func backupBySchedule(c chan error, cmd chan string, sigterm chan os.Signal) {
-	for {
-		select {
-		case <-sigterm:
-			env.EInfo("backup interrupted by signal")
-			c <- ErrInterrupted
-			return
-		case line := <-cmd:
-			// execute command
-			env.EInfo("command received while backup: %s", line)
-			if line == "stop" {
-				env.EInfo("backup interrupted by stop command")
-				c <- ErrInterrupted
-				return
-			} else {
-				env.EInfo("command ignored while backup: %s", line)
-			}
-		default:
-			// do something
-			time.Sleep(1 * time.Second)
-			env.Errf(".")
-		}
-	}
-}
-
-func backupByCommand(args []string) {
-	env.EInfo("backup command received")
 }
 
 func get(args []string) {
