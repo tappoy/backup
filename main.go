@@ -133,7 +133,7 @@ func sendCommand() int {
 	// join args
 	cmd := strings.Join(args, " ")
 
-	env.Errf("sendCommand: %s\n", cmd)
+	env.EDebug("sendCommand: %s\n", cmd)
 
 	// send command to socket
 	conn, err := net.Dial("unix", SocketFile)
