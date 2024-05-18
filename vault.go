@@ -2,7 +2,7 @@ package main
 
 import "github.com/tappoy/env"
 
-var vaultDir string
+var vaultPrefix string
 var vaultPassword string
 
 func vault(args []string) {
@@ -12,7 +12,7 @@ func vault(args []string) {
 		return
 	}
 
-	vaultDir = args[0]
+	vaultPrefix = args[0]
 	vaultPassword = args[1]
-	env.EInfo("set vaultDir=%s, vaultPassword=(secret)", vaultDir)
+	env.EInfo("set vaultPrefix=(secret), vaultPassword=(secret)")
 }
