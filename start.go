@@ -52,7 +52,7 @@ func readLineFromSocket(sock net.Listener, cmd chan string, sigterm chan os.Sign
 				continue
 			}
 			errCount = 0
-			env.EDebug("received: %s\n", line)
+			env.EDebug("received: %s", line)
 
 			// trim line
 			line = strings.TrimSpace(line)
@@ -139,7 +139,7 @@ func start() int {
 				// execute
 				env.EInfo("backup started by schedule")
 				c := make(chan error)
-				go backup(c, cmd, sigterm)
+				go backupBySchedule(c, cmd, sigterm)
 				err := <-c
 				close(c)
 
@@ -179,7 +179,7 @@ func checkTime(now time.Time, lastExecuted time.Time) bool {
 	return false
 }
 
-func backup(c chan error, cmd chan string, sigterm chan os.Signal) {
+func backupBySchedule(c chan error, cmd chan string, sigterm chan os.Signal) {
 	for {
 		select {
 		case <-sigterm:
@@ -205,5 +205,43 @@ func backup(c chan error, cmd chan string, sigterm chan os.Signal) {
 }
 
 func doCommand(line string) {
-	// doCommand
+	args := strings.Split(line, " ")
+	command := args[0]
+	switch command {
+	case "vault":
+		vault(args[1:])
+	case "backup":
+		backupByCommand(args[1:])
+	case "get":
+		get(args[1:])
+	case "remove":
+		remove(args[1:])
+	case "list":
+		list(args[1:])
+	case "du":
+		du(args[1:])
+	default:
+		env.EInfo("receive unknown command: %s", command)
+		return
+	}
+}
+
+func backupByCommand(args []string) {
+	env.EInfo("backup command received")
+}
+
+func get(args []string) {
+	env.EInfo("get command received")
+}
+
+func remove(args []string) {
+	env.EInfo("remove command received")
+}
+
+func list(args []string) {
+	env.EInfo("list command received")
+}
+
+func du(args []string) {
+	env.EInfo("du command received")
 }

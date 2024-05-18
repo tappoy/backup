@@ -75,6 +75,9 @@ func run0(command string) bool {
 }
 
 func main() {
+	// set debug mode
+	env.SetDebug(true)
+
 	// get command
 	if len(env.Args) < 2 {
 		env.Errf("No command specified\n")
@@ -117,7 +120,30 @@ func run(command string) int {
 	}
 
 	switch command {
-	case "stop", "vault", "backup", "get", "remove", "list", "du":
+	case "vault":
+		// check arg length
+		switch len(env.Args) {
+		case 2:
+			// backupd vault dir
+			env.Errf("No vault-dir\n")
+			RunHelpMessage()
+			return 1
+		case 3:
+			// Input Password
+			env.Errf("Input vault password:\n")
+			password, err := env.InputPassword()
+			if err != nil {
+				env.Errf("Failed to input password: %s\n", err)
+				return 1
+			}
+			env.Args = append(env.Args, password)
+			return sendCommand()
+		default:
+			env.Errf("Too many arguments\n")
+			RunHelpMessage()
+			return 1
+		}
+	case "stop", "backup", "get", "remove", "list", "du":
 		return sendCommand()
 	default:
 		env.Errf("Unknown command: %s\n", command)
