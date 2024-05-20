@@ -21,9 +21,6 @@ import (
 //go:embed Usage.txt
 var Usage string
 
-// VaultDir is the directory path of the vault.
-var VaultDir string
-
 // PidFile is the path of the pid file.
 const PidFile = "/var/run/backupd.pid"
 

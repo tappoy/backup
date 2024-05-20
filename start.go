@@ -15,6 +15,10 @@ import (
 
 var ErrInterrupted = errors.New("Interrupted")
 
+// _vaultDir is the directory path of the vault.
+var _vaultDir string
+
+
 func accept(sock net.Listener) (string, error) {
 	conn, err := sock.Accept()
 	if err != nil {
@@ -79,8 +83,8 @@ func start() int {
 	}
 
 	// get VAULT_DIR
-	VaultDir = env.Getenv("VAULT_DIR", "")
-	if VaultDir == "" {
+	_vaultDir = env.Getenv("VAULT_DIR", "")
+	if _vaultDir == "" {
 		env.Errf("VAULT_DIR is not set\n")
 		RunHelpMessage()
 		return 1
