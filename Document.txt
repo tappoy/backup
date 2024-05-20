@@ -28,9 +28,6 @@ var ErrInterrupted = errors.New("Interrupted")
 var Usage string
     Usage is the help message.
 
-var VaultDir string
-    VaultDir is the directory path of the vault.
-
 
 FUNCTIONS
 
