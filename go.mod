@@ -3,9 +3,9 @@ module github.com/tappoy/backup
 go 1.22.3
 
 require (
-	github.com/tappoy/archive v1.5.1
 	github.com/tappoy/crypto v1.5.0
 	github.com/tappoy/env v1.7.0
+	github.com/tappoy/storage/v2 v2.0.2
 	github.com/tappoy/tsv v1.0.0
 	github.com/tappoy/vault v1.5.0
 )

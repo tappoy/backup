@@ -49,5 +49,5 @@ backupd <command>
     the keys after 4 are ignored.
 
     See:
-      - https://github.com/tappoy/archive
+      - https://github.com/tappoy/storage
       - https://github.com/tappoy/vault-cli

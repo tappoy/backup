@@ -22,14 +22,14 @@ github.com/aws/aws-sdk-go-v2/service/s3 v1.53.2 h1:rq2hglTQM3yHZvOPVMtNvLS5x6hij
 github.com/aws/aws-sdk-go-v2/service/s3 v1.53.2/go.mod h1:qmdkIIAC+GCLASF7R2whgNrJADz0QZPX+Seiw/i4S3o=
 github.com/aws/smithy-go v1.20.2 h1:tbp628ireGtzcHDDmLT/6ADHidqnwgF57XOXZe6tp4Q=
 github.com/aws/smithy-go v1.20.2/go.mod h1:krry+ya/rV9RDcV/Q16kpu6ypI4K2czasz0NC3qS14E=
-github.com/tappoy/archive v1.5.1 h1:4sMYGxtrUaVKjvZQZxy0f4Kybdu6GZVLx4nyMkkNCvA=
-github.com/tappoy/archive v1.5.1/go.mod h1:ulDp/vQpzhsqpkp+GaCxFreLSR/xRNpEWqSCT+M7SB0=
 github.com/tappoy/crypto v1.5.0 h1:ZZZHEQyuVgeh0W9pFJVdcT2PAIJO3pfOmT3Vikwr4g4=
 github.com/tappoy/crypto v1.5.0/go.mod h1:bIRaKMbqdSIkJCoei1HW6+HgN2CF2J9pDPhBEUrXZLI=
 github.com/tappoy/env v1.7.0 h1:RRuGXS1wa9CadA33BDVHD0OtcwbHG9EUFeFhSOQNc1s=
 github.com/tappoy/env v1.7.0/go.mod h1:+Fr+44ueVwkxGrRxD6ZBKt7EQVBLkTNPbZin/2qsnfE=
 github.com/tappoy/logger v1.9.0 h1:az9/azF/6H3L0dz4RKLE/b0e2ymoooA93Sk/SBD4aq0=
 github.com/tappoy/logger v1.9.0/go.mod h1:5XDuyu3l8ktLVFgWyRuNZfbiP5FYe+NyfQJOan0Xvck=
+github.com/tappoy/storage/v2 v2.0.2 h1:pz8UzZNtOTOsKM5tmOt983t2QhyXLFe9GfbdIXM4Hg8=
+github.com/tappoy/storage/v2 v2.0.2/go.mod h1:ED/bnLG3BwwjtDHG3s37jwfCNyZQyPmAVH21J0Jykho=
 github.com/tappoy/tsv v1.0.0 h1:N+N65EPOpNQXvcjG2/RaoOLyCWOc/7fnqtS+5hAM//E=
 github.com/tappoy/tsv v1.0.0/go.mod h1:vMOnhQcqa0GBBZD1qdoyy25tz91NbvymM+6gB6n+8B8=
 github.com/tappoy/vault v1.5.0 h1:3CNIUulPGimKEvWAq49wrLhoOJdB5gcjB8dauINtYCE=

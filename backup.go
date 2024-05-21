@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/tappoy/env"
 	vaultLib "github.com/tappoy/vault"
-	"github.com/tappoy/archive"
-	"github.com/tappoy/archive/types"
+	"github.com/tappoy/storage/v2"
+	"github.com/tappoy/storage/v2/types"
 	"github.com/tappoy/crypto"
 
 	"os"
@@ -60,7 +60,7 @@ func backupByCommand(args []string) {
 			break
 		}
 
-		client, err := archive.NewClientFromString(clientConfig)
+		client, err := storage.NewClientFromString(clientConfig)
 		if err != nil {
 			env.ENotice("failed to create client: %v", err)
 			break

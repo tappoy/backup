@@ -7,8 +7,9 @@ See [Document.txt](Document.txt)
 - [backupd.config](./test-data/config/backupd.config)
 
 # Config of Destination
-- aws: [.aws.config](https://github.com/tappoy/archive/blob/main/.aws.config.sample)
-- openstack: [.openstack.config](https://github.com/tappoy/archive/blob/main/.openstack.config.sample)
+- aws: [.aws.config](https://github.com/tappoy/storage/blob/main/.aws.config.sample)
+- local: [.local.config](https://github.com/tappoy/storage/blob/main/.local.config.sample)
+- openstack: [.openstack.config](https://github.com/tappoy/storage/blob/main/.openstack.config.sample)
 
 # Operation Example
 ```sh
@@ -18,7 +19,7 @@ usr@local$ cat .vault-password | ssh user@remote 'backupd vault /srv/vault'
 
 # Dependencies
 - [github.com/tappoy/env](https://github.com/tappoy/env)
-- [github.com/tappoy/archive](https://github.com/tappoy/archive)
+- [github.com/tappoy/storage](https://github.com/tappoy/storage)
 - [github.com/tappoy/vault-cli](https://github.com/tappoy/vault-cli)
 - [github.com/tappoy/vault](https://github.com/tappoy/vault)
 
