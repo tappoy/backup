@@ -49,6 +49,13 @@ func makeVault(t *testing.T) *vaultLib.Vault {
 		t.Fatalf("failed to read mock config: %v", err)
 	}
 
+	// read local config
+	local, err := os.ReadFile("test-data/config/local.config")
+	if err != nil {
+		t.Fatalf("failed to read mock config: %v", err)
+	}
+
+
 	// set client
 	err = v.Set(_vaultPrefix+"_1", string(mock1))
 	if err != nil {
@@ -60,6 +67,13 @@ func makeVault(t *testing.T) *vaultLib.Vault {
 	if err != nil {
 		t.Fatalf("failed to set client: %v", err)
 	}
+
+	// set client
+	err = v.Set(_vaultPrefix+"_3", string(local))
+	if err != nil {
+		t.Fatalf("failed to set client: %v", err)
+	}
+
 
 	return v
 }
