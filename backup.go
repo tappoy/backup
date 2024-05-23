@@ -100,7 +100,7 @@ func dataModeBackup(sc SrcConfig, clients []types.Client) error {
 	prefix := makePrefix(sc)
 
 	// basename
-	basename := fmt.Sprintf("%s.tgz", time.Now().Format("2006-01-02"))
+	basename := fmt.Sprintf("%s.tgzc", time.Now().Format("2006-01-02"))
 
 	// body
 	body, err := os.ReadFile(tmpFile.Name())
@@ -137,7 +137,7 @@ func logModeBackupFile(sc SrcConfig, file string, clients []types.Client) error 
 	prefix := makePrefix(sc)
 
 	// basename
-	basename := fmt.Sprintf("%s.gz", filepath.Base(file))
+	basename := fmt.Sprintf("%s.gzc", filepath.Base(file))
 
 	// body
 	body, err := os.ReadFile(tmpFile.Name())
