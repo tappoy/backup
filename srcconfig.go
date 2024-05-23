@@ -23,10 +23,10 @@ var (
 	LogMode BackupMode = "log"
 )
 
-// Config represents backup settings defined by a yaml file.
-type Config struct {
+// SrcConfig represents backup settings defined by a yaml file.
+type SrcConfig struct {
 	// Name is the name of the setting.
-	// It uses the container name in the bucket.
+	// It uses the container name in the prefix.
 	Name string
 
 	// Mode is the mode of backup.
@@ -36,31 +36,31 @@ type Config struct {
 	Source string
 }
 
-// ConfigError represents an error in the config file.
-type ConfigError struct {
+// SrcConfigError represents an error in the config file.
+type SrcConfigError struct {
 	TsvLine tsv.TsvLine
 	Err error
 }
 
-func (e ConfigError) Error() string {
+func (e SrcConfigError) Error() string {
 	return fmt.Sprintf("line %d: %s, %s", e.TsvLine.LineNo, e.TsvLine.Line, e.Err)
 }
 
-func configError(msg string, line tsv.TsvLine) ConfigError {
-	return ConfigError{
+func configError(msg string, line tsv.TsvLine) SrcConfigError {
+	return SrcConfigError{
 		line,
 		errors.New(msg),
 	}
 }
 
-// LoadConfigFile loads backup settings from config file.
-func LoadConfigFile(path string) ([]Config, error) {
+// LoadSrcConfigFile loads backup settings from config file.
+func LoadSrcConfigFile(path string) ([]SrcConfig, error) {
 	tsvLines, err := tsv.ReadTsvFile(path)
 	if err != nil {
 		return nil, err
 	}
 
-	configs := []Config{}
+	configs := []SrcConfig{}
 
 	for _, tsvLine := range tsvLines {
 		if len(tsvLine.Fields) != 3 {
@@ -79,7 +79,7 @@ func LoadConfigFile(path string) ([]Config, error) {
 			return nil, configError("source directory is empty", tsvLine)
 		}
 
-		configs = append(configs, Config{
+		configs = append(configs, SrcConfig{
 			Name: name,
 			Mode: mode,
 			Source: src,

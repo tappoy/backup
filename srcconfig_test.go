@@ -9,13 +9,13 @@ import (
 	"os"
 	)
 
-func TestLoadConfigFile(t *testing.T) {
-	config, err := LoadConfigFile("test-data/config/backup.config")
+func TestLoadSrcConfigFile(t *testing.T) {
+	config, err := LoadSrcConfigFile("test-data/config/backupd.config")
 	if err != nil {
 		t.Errorf("err: %v", err)
 	}
 
-	want := []Config{
+	want := []SrcConfig{
 		{"test-vault", DataMode, "test-data/srv/vault"},
 		{"test-vault", LogMode, "test-data/var/log/vault"},
 		{"test-config", DataMode, "test-data/config"},
@@ -27,14 +27,14 @@ func TestLoadConfigFile(t *testing.T) {
 
 }
 
-func TestLoadConfigFileNoExist(t *testing.T) {
-	_, err := LoadConfigFile("test-data/config/no-exist.config")
+func TestLoadSrcConfigFileNoExist(t *testing.T) {
+	_, err := LoadSrcConfigFile("test-data/config/no-exist.config")
 	if err == nil {
 		t.Errorf("err: %v", err)
 	}
 }
 
-func TestLoadConfigFileError(t *testing.T) {
+func TestLoadSrcConfigFileError(t *testing.T) {
 	// invalid number of fields
 	f, err := os.Create("tmp/invalid-number-of-fields.config")
 	if err != nil {
@@ -44,8 +44,8 @@ func TestLoadConfigFileError(t *testing.T) {
 
 	f.WriteString("test-vault\tdata\ttest-data/srv/vault\texfield\n")
 
-	_, err = LoadConfigFile("tmp/invalid-number-of-fields.config")
-	want := ConfigError{
+	_, err = LoadSrcConfigFile("tmp/invalid-number-of-fields.config")
+	want := SrcConfigError{
 		TsvLine: tsv.TsvLine{
 			LineNo: 1,
 			Line: "test-vault\tdata\ttest-data/srv/vault\texfield",
@@ -59,7 +59,7 @@ func TestLoadConfigFileError(t *testing.T) {
 	}
 }
 
-func TestLoadConfigFileError2(t *testing.T) {
+func TestLoadSrcConfigFileError2(t *testing.T) {
 	// empty name
 	fileName := "tmp/empty-name.config"
 	f, err := os.Create(fileName)
@@ -70,8 +70,8 @@ func TestLoadConfigFileError2(t *testing.T) {
 
 	f.WriteString("\tdata\ttest-data/srv/vault\n")
 
-	_, err = LoadConfigFile(fileName)
-	want := ConfigError{
+	_, err = LoadSrcConfigFile(fileName)
+	want := SrcConfigError{
 		TsvLine: tsv.TsvLine{
 			LineNo: 1,
 			Line: "\tdata\ttest-data/srv/vault",
@@ -85,7 +85,7 @@ func TestLoadConfigFileError2(t *testing.T) {
 	}
 }
 
-func TestLoadConfigFileError3(t *testing.T) {
+func TestLoadSrcConfigFileError3(t *testing.T) {
 	// invalid mode
 	fileName := "tmp/invalid-mode.config"
 	f, err := os.Create(fileName)
@@ -96,8 +96,8 @@ func TestLoadConfigFileError3(t *testing.T) {
 
 	f.WriteString("test-vault\tinvalid-mode\ttest-data/srv/vault\n")
 
-	_, err = LoadConfigFile(fileName)
-	want := ConfigError{
+	_, err = LoadSrcConfigFile(fileName)
+	want := SrcConfigError{
 		TsvLine: tsv.TsvLine{
 			LineNo: 1,
 			Line: "test-vault\tinvalid-mode\ttest-data/srv/vault",
@@ -111,7 +111,7 @@ func TestLoadConfigFileError3(t *testing.T) {
 	}
 }
 
-func TestLoadConfigFileError4(t *testing.T) {
+func TestLoadSrcConfigFileError4(t *testing.T) {
 	// source directory is empty
 	fileName := "tmp/source-directory-is-empty.config"
 	f, err := os.Create(fileName)
@@ -122,8 +122,8 @@ func TestLoadConfigFileError4(t *testing.T) {
 
 	f.WriteString("test-vault\tdata\t\n")
 
-	_, err = LoadConfigFile(fileName)
-	want := ConfigError{
+	_, err = LoadSrcConfigFile(fileName)
+	want := SrcConfigError{
 		TsvLine: tsv.TsvLine{
 			LineNo: 1,
 			Line: "test-vault\tdata\t",

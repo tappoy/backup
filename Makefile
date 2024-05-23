@@ -1,4 +1,4 @@
-PACKAGE=github.com/tappoy/backup
+PACKAGE=github.com/tappoy/backupd
 WORKING_DIRS=tmp bin
 
 SRC=$(shell find . -name "*.go")

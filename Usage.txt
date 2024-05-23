@@ -1,30 +1,53 @@
-backup <command>
-  (*): need service to be started.
+backupd <command>
   commands:
-    - start <vault-dir>      start the service. required password.
-    - stop                   stop the service
-    - info                   show the service status
-    * get <obj-path> <dst>   download the object.
-    * rmobject <obj-path>    remove the object.
-    * rmcontainer <path>     remove the container.
-    * objects <container>    list objects in container.
-    * containers             list containers.
-    - help                   show this message
+    - help                 show this message.
+    - info                 show the service status.
+    - start                start the service.
+    + stop                 stop the service.
+    + vault <vault-prefix> set vault prefix. required password.
+                           password can be read from stdin.
+    * backup [<n>]         backup immediately.
+                           if no n, backup to all of clouds.
+    * get <n> <obj> <dst>  download the object to the destination.
+    * remove <n> <obj>     remove the object.
+    * list <n>             list objects in container.
+    * du <n>               disk usage of the container.
 
-  Path:
+  (+) need service to be started.
+  (*) need service to be started and vault-dir to be set.
+
+  Arguments:
+    - vault-prefix: The prefix of the vault key.
+    - n: The number of the vault key. (vault-prefix + "_" + n)
+    - obj: The object name.
+    - dst: The destination path. if dst is "-" then stdout.
+
+  Files:
     - vault-dir: The path of the vault directory.
-    - log file:  /var/log/backup/{info,notice,error}.log
-    - pid file:  /var/run/backup.pid
-    - pipe file: /var/run/backup.pipe
+    - log :    /var/log/backupd/{info,notice,error}.log
+    - pid :    /run/backupd.pid
+    - socket : /run/backupd.socket
+
+  Environment:
+    - CONFIG:       The path of the configuration file.
+                    Default is /etc/backupd.config.
+    - VAULT_DIR:    The directory of the vault.
+                    If not set, service will not start.
 
   This service starts backing up at 2:00 daily.
 
   Vault:
-    Credentials of objectstrorage are stored in vault.
-    The vault must manage these keys:
-      - OS_AUTH_URL
-      - OS_USERNAME
-      - OS_PASSWORD
-      - OS_TENANT_ID
-      - OS_DOMAIN_NAME
-    See https://github.com/tappoy/vault-cli for more information.
+    Configs of clouds are stored in the vault.
+    The vault manage these keys:
+      - vault-prefix_n
+    If the vault-prefix is set to "CLOUD", like below:
+      - CLOUD_1
+      - CLOUD_2 ...
+    Backup to all of clouds these keys.
+    The keys starts from 1 and are consecutive.
+    If the keys are not consecutive, such as 1, 2, 4...,
+    the keys after 4 are ignored.
+
+    See:
+      - https://github.com/tappoy/storage
+      - https://github.com/tappoy/vault-cli
