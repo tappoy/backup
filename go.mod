@@ -1,4 +1,4 @@
-module github.com/tappoy/backup
+module github.com/tappoy/backupd
 
 go 1.22.3
 
