@@ -8,6 +8,7 @@ require (
 	github.com/tappoy/storage/v2 v2.0.2
 	github.com/tappoy/tsv v1.0.0
 	github.com/tappoy/vault v1.5.0
+	github.com/tappoy/version v1.1.0
 )
 
 require (

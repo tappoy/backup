@@ -11,6 +11,7 @@ package main
 import (
 	_ "embed"
 	"github.com/tappoy/env"
+	ver "github.com/tappoy/version"
 
 	"os"
 	"strings"
@@ -61,6 +62,12 @@ func info() {
 	env.Outf("Service is running. pid=%s\n", pidStr)
 }
 
+// print version
+func version() int {
+	env.Outf("backupd version %s\n", ver.Version())
+	return 0
+}
+
 func run0(command string) bool {
 	switch command {
 	case "help":
@@ -68,6 +75,9 @@ func run0(command string) bool {
 		return true
 	case "info":
 		info()
+		return true
+	case "version":
+		version()
 		return true
 	default:
 		return false
