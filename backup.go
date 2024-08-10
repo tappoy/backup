@@ -108,7 +108,10 @@ func dataModeBackup(sc SrcConfig, clients []types.Client) error {
 		return err
 	}
 
-	upload(prefix+basename, body, clients)
+	// objectname
+	objectname := filepath.Clean(prefix+basename)
+
+	upload(objectname, body, clients)
 	return nil
 }
 
