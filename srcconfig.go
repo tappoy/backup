@@ -5,7 +5,7 @@ import (
 
 	"errors"
 	"fmt"
-	)
+)
 
 // BackupMode is the kind of backup mode.
 type BackupMode string
@@ -39,7 +39,7 @@ type SrcConfig struct {
 // SrcConfigError represents an error in the config file.
 type SrcConfigError struct {
 	TsvLine tsv.TsvLine
-	Err error
+	Err     error
 }
 
 func (e SrcConfigError) Error() string {
@@ -80,8 +80,8 @@ func LoadSrcConfigFile(path string) ([]SrcConfig, error) {
 		}
 
 		configs = append(configs, SrcConfig{
-			Name: name,
-			Mode: mode,
+			Name:   name,
+			Mode:   mode,
 			Source: src,
 		})
 	}

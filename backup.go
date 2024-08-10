@@ -1,17 +1,17 @@
 package main
 
 import (
+	"github.com/tappoy/crypto"
 	"github.com/tappoy/env"
-	vaultLib "github.com/tappoy/vault"
 	"github.com/tappoy/storage/v2"
 	"github.com/tappoy/storage/v2/types"
-	"github.com/tappoy/crypto"
+	vaultLib "github.com/tappoy/vault"
 
-	"os"
-	"time"
-	"fmt"
 	"bytes"
+	"fmt"
+	"os"
 	"path/filepath"
+	"time"
 )
 
 func backupByCommand(args []string) {
@@ -109,7 +109,7 @@ func dataModeBackup(sc SrcConfig, clients []types.Client) error {
 	}
 
 	// objectname
-	objectname := filepath.Clean(prefix+basename)
+	objectname := filepath.Clean(prefix + basename)
 
 	upload(objectname, body, clients)
 	return nil

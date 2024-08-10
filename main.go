@@ -1,11 +1,11 @@
 // This service is used to backup files to cloud object storage.
 //
 // Features:
-// 	- This service will begin backing up daily at 2:00AM local time.
-// 	- Support cloud object storage, such as AWS S3 and OpenStack.
-// 	- Multiple backup destinations can be configured.
-// 	- Backup files is gz or tgz format.
-// 	- Backup files is encrypted.
+//   - This service will begin backing up daily at 2:00AM local time.
+//   - Support cloud object storage, such as AWS S3 and OpenStack.
+//   - Multiple backup destinations can be configured.
+//   - Backup files is gz or tgz format.
+//   - Backup files is encrypted.
 package main
 
 import (
@@ -13,12 +13,13 @@ import (
 	"github.com/tappoy/env"
 	ver "github.com/tappoy/version"
 
+	"net"
 	"os"
 	"strings"
-	"net"
-	)
+)
 
 // Usage is the help message.
+//
 //go:embed Usage.txt
 var Usage string
 

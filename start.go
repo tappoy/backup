@@ -3,21 +3,20 @@ package main
 import (
 	"github.com/tappoy/env"
 
+	"errors"
+	"net"
 	"os"
 	"os/signal"
+	"strconv"
+	"strings"
 	"syscall"
 	"time"
-	"strconv"
-	"net"
-	"errors"
-	"strings"
 )
 
 var ErrInterrupted = errors.New("Interrupted")
 
 // _vaultDir is the directory path of the vault.
 var _vaultDir string
-
 
 func accept(sock net.Listener) (string, error) {
 	conn, err := sock.Accept()
@@ -106,7 +105,7 @@ func start() int {
 		env.Errf("failed to create socket: %v\n", err)
 		return 1
 	}
-	defer func () {
+	defer func() {
 		sock.Close()
 		os.Remove(SocketFile)
 	}()

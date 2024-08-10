@@ -4,10 +4,10 @@ import (
 	"github.com/tappoy/tsv"
 
 	"errors"
-	"testing"
-	"reflect"
 	"os"
-	)
+	"reflect"
+	"testing"
+)
 
 func TestLoadSrcConfigFile(t *testing.T) {
 	config, err := LoadSrcConfigFile("test-data/config/backupd.config")
@@ -48,7 +48,7 @@ func TestLoadSrcConfigFileError(t *testing.T) {
 	want := SrcConfigError{
 		TsvLine: tsv.TsvLine{
 			LineNo: 1,
-			Line: "test-vault\tdata\ttest-data/srv/vault\texfield",
+			Line:   "test-vault\tdata\ttest-data/srv/vault\texfield",
 			Fields: []string{"test-vault", "data", "test-data/srv/vault", "exfield"},
 		},
 		Err: errors.New("invalid number of fields. it must be 3"),
@@ -74,7 +74,7 @@ func TestLoadSrcConfigFileError2(t *testing.T) {
 	want := SrcConfigError{
 		TsvLine: tsv.TsvLine{
 			LineNo: 1,
-			Line: "\tdata\ttest-data/srv/vault",
+			Line:   "\tdata\ttest-data/srv/vault",
 			Fields: []string{"", "data", "test-data/srv/vault"},
 		},
 		Err: errors.New("name is empty"),
@@ -100,7 +100,7 @@ func TestLoadSrcConfigFileError3(t *testing.T) {
 	want := SrcConfigError{
 		TsvLine: tsv.TsvLine{
 			LineNo: 1,
-			Line: "test-vault\tinvalid-mode\ttest-data/srv/vault",
+			Line:   "test-vault\tinvalid-mode\ttest-data/srv/vault",
 			Fields: []string{"test-vault", "invalid-mode", "test-data/srv/vault"},
 		},
 		Err: errors.New("invalid mode. it must be data or log"),
@@ -126,7 +126,7 @@ func TestLoadSrcConfigFileError4(t *testing.T) {
 	want := SrcConfigError{
 		TsvLine: tsv.TsvLine{
 			LineNo: 1,
-			Line: "test-vault\tdata\t",
+			Line:   "test-vault\tdata\t",
 			Fields: []string{"test-vault", "data", ""},
 		},
 		Err: errors.New("source directory is empty"),
